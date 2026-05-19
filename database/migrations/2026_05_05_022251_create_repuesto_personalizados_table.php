@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('repuesto_personalizados', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 100);
+            $table->string('correo', 150);
+            $table->string('telefono', 20);
+            $table->string('marca', 50);
+            $table->string('modelo', 50);
+            $table->integer('anio');
+            $table->text('descripcion');
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }
@@ -20,6 +28,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+
     public function down(): void
     {
         Schema::dropIfExists('repuesto_personalizados');

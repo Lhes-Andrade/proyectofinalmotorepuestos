@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pqrs;
-use App\Models\repuestoPersonalizado;
+use App\Models\RepuestoPersonalizado;
 
 class PqrsController extends Controller
 {
@@ -46,17 +46,35 @@ class PqrsController extends Controller
 
     public function guardarSolicitud(Request $request)
     {
-        $datos = $request->all();
+        $request->validate([
+            'nombre' => 'required|string|max:100',
+            'correo' => 'required|email|max:150',
+            'telefono' => 'required|string|max:20',
+            'marca' => 'required|string|max:50',
+            'modelo' => 'required|string|max:50',
+            'anio' => 'required|integer|min:1950|max:' . date('Y'),
+            'descripcion' => 'required|string',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-        // Si el usuario subió una imagen, la guardamos en storage/app/public/solicitudes
+        $datos = $request->only([
+            'nombre',
+            'correo',
+            'telefono',
+            'marca',
+            'modelo',
+            'anio',
+            'descripcion'
+        ]);
+
         if ($request->hasFile('imagen')) {
-            $ruta = $request->file('imagen')->store('solicitudes', 'public');
+            $ruta = $request->file('imagen')->store('repuestos_personalizados', 'public');
             $datos['imagen'] = $ruta;
         }
 
-        repuestoPersonalizado::create($datos);
+        RepuestoPersonalizado::create($datos);
 
-        return back()->with('success', 'Solicitud enviada correctamente');
+        return back()->with('success', '¡Tu solicitud fue enviada correctamente! Te contactaremos pronto.');
     }
 
     public function edit($id)
@@ -95,7 +113,8 @@ class PqrsController extends Controller
         return redirect()->route('registros')->with('success', 'Actualizado correctamente');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         // Buscamos el registro; si no existe lanza un error 404
         $mensaje = Pqrs::findOrFail($id);
         //Lo eliminamos de la base de datos

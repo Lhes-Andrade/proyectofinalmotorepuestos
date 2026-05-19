@@ -33,4 +33,10 @@
             </main>
         </div>
     </body>
+    <!-- Datatables.net/manual/installation
+    <script>
+        $(document).ready(function(){
+        $('#tablamensajes').Datatable();
+        });
+    </script> -->
 </html>

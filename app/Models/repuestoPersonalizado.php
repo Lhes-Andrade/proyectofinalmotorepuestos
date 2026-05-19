@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class repuestoPersonalizado extends Model
+class RepuestoPersonalizado extends Model
 {
-    protected $table = 'solicitudes';
     protected $fillable = [
         'nombre',
         'correo',
@@ -15,7 +14,6 @@ class repuestoPersonalizado extends Model
         'modelo',
         'anio',
         'descripcion',
-        'imagen'
+        'imagen',
     ];
 }
-
