@@ -1,6 +1,17 @@
+# ===== Etapa 1: compilar los assets con Node/Vite =====
+FROM node:20-alpine AS assets
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY resources/ resources/
+COPY vite.config.js postcss.config.js tailwind.config.js ./
+RUN npm run build
+
+# ===== Etapa 2: imagen final con PHP =====
 FROM richarvey/nginx-php-fpm:3.1.6
 
 COPY . .
+COPY --from=assets /app/public/build ./public/build
 
 # Image config
 ENV SKIP_COMPOSER=1
