@@ -282,6 +282,7 @@
                 <ul class="navbar-nav align-items-lg-center gap-2">
                     @if (Route::has('login'))
                     @auth
+                    @if (auth()->user()->isAdmin())
                     <li class="nav-item">
                         <a href="/ventas" class="btn btn-ventas btn-custom">
                             <i class="bi bi-cash-coin"></i> Ventas
@@ -292,6 +293,12 @@
                             <i class="bi bi-journal-text"></i> Registros
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.usuarios') }}" class="btn btn-registros btn-custom">
+                            <i class="bi bi-people-fill"></i> Usuarios
+                        </a>
+                    </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a class="nav-link profile-icon" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i>
