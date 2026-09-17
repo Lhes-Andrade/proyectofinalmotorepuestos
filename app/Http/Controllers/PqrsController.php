@@ -74,6 +74,7 @@ class PqrsController extends Controller
 
         RepuestoPersonalizado::create($datos);
 
+
         return back()->with('success', '¡Tu solicitud fue enviada correctamente! Te contactaremos pronto.');
     }
 

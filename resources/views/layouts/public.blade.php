@@ -180,19 +180,28 @@
                 <ul class="navbar-nav align-items-lg-center gap-2">
                     @if (Route::has('login'))
                         @auth
-                            {{-- Botón Ventas (verde dinero) --}}
-                            <li class="nav-item">
-                                <a href="/ventas" class="btn btn-ventas btn-custom">
-                                    <i class="bi bi-cash-coin"></i> Ventas
-                                </a>
-                            </li>
+                            @if (auth()->user()->isAdmin())
+                                {{-- Botón Ventas (verde dinero) --}}
+                                <li class="nav-item">
+                                    <a href="/ventas" class="btn btn-ventas btn-custom">
+                                        <i class="bi bi-cash-coin"></i> Ventas
+                                    </a>
+                                </li>
 
-                            {{-- Botón Registros (dorado) --}}
-                            <li class="nav-item">
-                                <a href="/registros" class="btn btn-registros btn-custom">
-                                    <i class="bi bi-journal-text"></i> Registros
-                                </a>
-                            </li>
+                                {{-- Botón Registros (dorado) --}}
+                                <li class="nav-item">
+                                    <a href="/registros" class="btn btn-registros btn-custom">
+                                        <i class="bi bi-journal-text"></i> Registros
+                                    </a>
+                                </li>
+
+                                {{-- Botón Usuarios (gestión de roles) --}}
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.usuarios') }}" class="btn btn-registros btn-custom">
+                                        <i class="bi bi-people-fill"></i> Usuarios
+                                    </a>
+                                </li>
+                            @endif
 
                             {{-- Ícono de perfil con menú desplegable --}}
                             <li class="nav-item dropdown">

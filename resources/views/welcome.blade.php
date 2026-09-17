@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/5064/5064596.png" type="image/x-icon">
-    <title>MotoRepuestos - Bienvenido</title>
+    <title>MotoRepuestos</title>
 
     <style>
         body {
@@ -366,7 +366,7 @@
             </div>
         </section>
 
-        {{-- ================= CARRUSEL (lo que tenías en el index) ================= --}}
+        {{-- ================= CARRUSEL ================= --}}
         <section class="carousel-section">
             <div class="container">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">

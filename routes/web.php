@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\PqrsController;
+use App\Http\Controllers\GestionUsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,19 +41,30 @@ Route::post('/solicitud-personalizada', [PqrsController::class, 'guardarSolicitu
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
-    // Perfil del usuario (Breeze)
+    // Perfil del usuario (Breeze) - cualquier usuario autenticado, cliente o admin
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+/*
+|--------------------------------------------------------------------------
+| Rutas exclusivas para administradores
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'admin'])->group(function () {
     // Mensajes / PQRS (administración interna)
     Route::get('/registros', [PqrsController::class, 'index'])->name('registros');
     Route::get('/registros/{id}/editar', [PqrsController::class, 'edit'])->name('registros.edit');
     Route::put('/registros/{id}', [PqrsController::class, 'update'])->name('registros.update');
     Route::delete('/registros/{id}', [PqrsController::class, 'destroy'])->name('registros.destroy');
 
-    // Ventas (solo autenticados)
+    // Ventas (solo administradores)
     Route::get('/ventas', [PaginaController::class, 'ventas'])->name('ventas');
+
+    // Gestión de usuarios y roles
+    Route::get('/admin/usuarios', [GestionUsuariosController::class, 'index'])->name('admin.usuarios');
+    Route::put('/admin/usuarios/{usuario}', [GestionUsuariosController::class, 'actualizarRol'])->name('admin.usuarios.actualizar');
 });
 
 /*
